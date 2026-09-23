@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body bgcolor="red">
-    <h3>My  FOOTWEAR AND JAVA</h3>
+<body>
+   <h1>Hello Java Welcome to Backend profile</h1>
+   <h2>Hello User This is your username : ${username}</h2>
+   <h2>Hello User This is your password : ${password}</h2>
 </body>
 </html>

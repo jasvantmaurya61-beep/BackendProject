@@ -8,5 +8,6 @@
 </head>
 <body bgcolor="green">
 <h1>welcome to java  </h1>
+<h2>Hello User This is Your name: ${user} </h2>
 </body>
 </html>
