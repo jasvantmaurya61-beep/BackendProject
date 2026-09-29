@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,18 +38,9 @@ public  class UserController {
 
 	}
 
-	@GetMapping("/login")
-	public String login() {
-		System.out.println("UserController.login()");
-		return "login";
-
-	}
+	// id ke liye
 	
-	
-	
-   //  Get user by ID one id ke leye h
-	
-	@GetMapping("/path/{id}")
+	@GetMapping("/{id}")
 	@ResponseBody
 	public User pathVariablle(@PathVariable(name = "id") int id) {
 		
@@ -57,94 +49,31 @@ public  class UserController {
 		return userService.getUserById(id);
 	}
 	 
-	// Get all users ke liye h 
 	
-	@GetMapping("/users")
+	// Save user ki liye
+	
+	@PostMapping("/save-user")
 	@ResponseBody
-	public  List<User> getAllUser(Model model){
-		List<User> users= userService.getAllUsers();
-		 model.addAttribute("users", users);
-		 
-	return userService.getAllUsers();
-	
-	}
-	
-	
-	// Get Delete user id  ke liye 
-	
-	@GetMapping("/delete/user/{id}")
-	@ResponseBody
-	public String deleteUser(@PathVariable("id")int id){
-		userService.deleteUser(id);
-		return "{\"message\":\"user deleted successfully\"}";
-	}
-	
-	    //Update User ki id k liye 
-	
-	@GetMapping("/update/user/{id}")
-	@ResponseBody
-	public String updateUser(@ModelAttribute("user") User user) {
-		userService.updateUser(user);
-		return "{\"message\":\"user updated successfully\"}";
-	}
-	
-	    // User ko  update karna ke liye h
-	
-//	@PutMapping("/update/user/{id}")
-//	@ResponseBody
-//	public User updateUser(@PathVariable("id") int id,
-//	                       @RequestBody User user) {
-//
-//	    User existingUser = userService.getUserById(id);
-//
-//	    if (existingUser == null) {
-//	        return null;
-//	    }
-//
-//	    existingUser.setName(user.getName());
-//	    existingUser.setGender(user.getGender());
-//	    existingUser.setAddress(user.getAddress());
-//
-//	    userService.updateUser(existingUser);
-//
-//	    return existingUser;
-//	}
-
-	@GetMapping("/sign-up")
-	public String signUp() {
-		System.out.println("UserController.login()");
-		return "signup";
-
-	}
-
-	@PostMapping("/sign-up")
-	public String saveUser(@ModelAttribute User user, Model model) {
+	public User saveUser(@RequestBody User user) {
 
 		System.out.println("UserController.saveUser : ");
 		System.out.println(user);
+       return userService.saveUser(user);
 
-		userService.saveUser(user);
-
-		model.addAttribute("user", user);
-
-		return "success";
-
+	}  
+	
+	
+	//Update User ki id k liye 
+	
+	@PutMapping("/user/{id}")
+	public User updateUser(@PathVariable("id") int id ,@RequestBody User user) {
+		
+		return  userService.updateUser(id , user);
 	}
 
-
-
-	@PostMapping("/login")
-	public String userLogin(@RequestParam(name = "username") String username,
-			@RequestParam(name = "password") String password, Model model) {
-
-		System.out.println("UserController.userLogin : " + username);
-		System.out.println("UserController.userLogin : " + password);
-
-		model.addAttribute("username", username);
-		model.addAttribute("password", password);
-
-		return "profile";
-
+     @DeleteMapping("/user/{id}")
+	public String deleteUser(@PathVariable("id") int id) {
+		userService.deleteUser(id);
+		return "User deleted Successfull";
 	}
-
 }

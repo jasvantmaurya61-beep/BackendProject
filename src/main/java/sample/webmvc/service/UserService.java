@@ -21,28 +21,28 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = false)
-	public void saveUser(User user) {
-		userDao.saveUser(user);
+	public  User saveUser(User user) {
+		return userDao.saveUser(user);
+		 
 	}
 	public User getUserById(int id) {
 		System.out.println("UserService.getUserById()");
 		return userDao.getUserById(id);
 	}
 
-	public List<User> getAllUsers() {
-		System.out.println("UserService.getAllusers()");
-		return userDao.getAllUsers();
+	
+	@Transactional(readOnly = false)
+	public User updateUser(int id, User user) {
+		user.setId(id);
+		return userDao.updateuser(user);
 	}
-	
-	@Transactional
-      public void deleteUser(int id) {
-    	   userDao.deleteUser(id);
-      }
-	
-     @Transactional
-	public void updateUser(User user) {
-		
-		userDao.updateUser(user);
+	@Transactional(readOnly = false)
+	public void deleteUser(int id) {
+		userDao.deleteUser(id);
 		
 	}
+
+	
 }
+
+	
