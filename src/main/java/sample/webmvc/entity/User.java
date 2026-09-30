@@ -1,25 +1,17 @@
 package sample.webmvc.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name, gender, address;
-
+	
 	public User() {
 		super();
 	}
 
-	public User( String name, String gender, String address) {
-		
+	public User(int id, String name, String gender, String address) {
+		this.id = id;
 		this.name = name;
 		this.gender = gender;
 		this.address = address;
@@ -61,6 +53,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", gender=" + gender + ", address=" + address + "]";
 	}
-
+	
+	
+	
 
 }
